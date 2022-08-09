@@ -38,12 +38,14 @@ public class HamletParser {
         return hamletData;
     }
 
-    public String changeHamletToLeon(String loadFile){
-        StringBuilder sb = new StringBuilder(loadFile);
-        Pattern p = Pattern.compile("Hamlet", Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher(sb);
-        System.out.println(m.replaceAll("Leon"));
-        return m.replaceAll("Leon");
+    public void changeHamletToLeon(Matcher matcher){
+        String replace = "Leon";
+        StringBuffer stringBuffer = new StringBuffer();
+        while (matcher.find()){
+            matcher.appendReplacement(stringBuffer, replace);
+        }
+        matcher.appendTail(stringBuffer);
+        hamletData = stringBuffer.toString();
     }
 
     public String changeHoratioToTariq(String loadFile){
@@ -56,14 +58,11 @@ public class HamletParser {
 
     public Matcher findHamlet(){
         Pattern p = Pattern.compile("Hamlet", Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher(hamletData);
-        return m;
-
+        return p.matcher(hamletData);
     }
 
     public Matcher findHoratio(){
         Pattern p = Pattern.compile("Horatio", Pattern.CASE_INSENSITIVE);
-        Matcher m = p.matcher(hamletData);
-        return m;
+        return p.matcher(hamletData);
     }
 }
