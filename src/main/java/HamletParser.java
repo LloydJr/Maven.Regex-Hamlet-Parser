@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by thook on 10/7/15.
@@ -13,7 +15,7 @@ public class HamletParser {
         this.hamletData = loadFile();
     }
 
-    private String loadFile(){
+    public String loadFile(){
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("hamlet.txt").getFile());
         StringBuilder result = new StringBuilder("");
@@ -36,4 +38,32 @@ public class HamletParser {
         return hamletData;
     }
 
+    public String changeHamletToLeon(String loadFile){
+        StringBuilder sb = new StringBuilder(loadFile);
+        Pattern p = Pattern.compile("Hamlet", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(sb);
+        System.out.println(m.replaceAll("Leon"));
+        return m.replaceAll("Leon");
+    }
+
+    public String changeHoratioToTariq(String loadFile){
+        StringBuilder sb = new StringBuilder(loadFile);
+        Pattern p = Pattern.compile("Horatio", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(sb);
+        System.out.println(m.replaceAll("Tariq"));
+        return m.replaceAll("Tariq");
+    }
+
+    public Matcher findHamlet(){
+        Pattern p = Pattern.compile("Hamlet", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(hamletData);
+        return m;
+
+    }
+
+    public Matcher findHoratio(){
+        Pattern p = Pattern.compile("Horatio", Pattern.CASE_INSENSITIVE);
+        Matcher m = p.matcher(hamletData);
+        return m;
+    }
 }
